@@ -56,6 +56,7 @@ CREATE TABLE public."singleImage"
     "belongsToUser" serial,
     "imgUrl" text,
     "activeImage" numeric DEFAULT 1,
+    "description" text DEFAULT '',
     "createdAt" timestamp with time zone DEFAULT 'now()',
     PRIMARY KEY ("imageId"),
     CONSTRAINT "belongsToAlbum" FOREIGN KEY ("belongsToAlbum")
@@ -70,10 +71,10 @@ CREATE TABLE public."singleImage"
         NOT VALID
 );
 
-ALTER TABLE IF EXISTS public."sinlgeImage"
+ALTER TABLE IF EXISTS public."singleImage"
     OWNER to postgres;
 
-COMMENT ON TABLE public."sinlgeImage"
+COMMENT ON TABLE public."singleImage"
     IS 'This is the table to save a single image that belongs to an album and belongs to a user.';
 
 -- Table to save all images that does not have any album associated --
@@ -84,6 +85,7 @@ CREATE TABLE public."imageNoAlbum"
     "belongsToUser" serial,
     "imageUrl" text,
     "activeImage" numeric DEFAULT 1,
+    "description" text DEFAULT '',
     "createdAt" timestamp with time zone DEFAULT 'now()',
     PRIMARY KEY ("imageId"),
     CONSTRAINT "belongsToUser" FOREIGN KEY ("belongsToUser")
