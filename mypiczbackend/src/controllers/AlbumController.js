@@ -8,7 +8,7 @@ exports.getAllAlbums = async (req, res, next) => {
         const queryAlbums = `SELECT * FROM "albums" WHERE "belongsTo" = '${userId}' AND "activeAlbum" = '1'`;
         const result = await client.query(queryAlbums);
         if (result.rowCount === 0) {
-            res.status(200).json({ msg: 'No albums yet', albums: [] });
+            return res.status(200).json({ msg: 'No albums yet', albums: [] });
         }
 
         res.status(200).json({ msg: 'Your albums', albums: result.rows });
