@@ -20,7 +20,7 @@ exports.loginUser = async (req, res, next) => {
     const result = await client.query(queryUser);
 
     if (result.rowCount === 0) {
-        return res.status(400).json({ msg: 'Please verify your email address' });
+        return res.json({ msg: 'Please verify your email address', codeStatus: 2 }); // 2 warning
     }
     
     const userFound = { ...result.rows[0] };
@@ -32,7 +32,7 @@ exports.loginUser = async (req, res, next) => {
 
     const passwordVerified = await bcriptjs.compare(password, userFound.password);
     if (!passwordVerified) {
-        return res.status(400).json({ msg: 'Please verify your password' });
+        return res.json({ msg: 'Please verify your password', codeStatus: 2  });
     }
     try {
         const payload = {
@@ -55,7 +55,7 @@ exports.loginUser = async (req, res, next) => {
             expiresIn: '24h', //TODO change when in production
         }, (error, token) => {
             if (error) throw error;
-            res.status(200).json({ msg: 'Logged in successfully', user: data, token: token });
+            res.status(200).json({ msg: 'Logged in successfully', user: data, token: token, codeStatus: 1 }); // 1 success
         })
     } catch (error) {
         console.log(error, 'Unable to complete your request');

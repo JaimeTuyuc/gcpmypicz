@@ -3,6 +3,10 @@ const router = express.Router();
 const { check } = require('express-validator');
 const createAccountController = require('../controllers/UserController');
 
+router.post('/refresh/:token',
+    createAccountController.refreshSessionUser
+)
+
 router.post('/register',
     // Inciar sesion
     [

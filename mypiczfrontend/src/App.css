@@ -1,3 +1,18 @@
 * {
   box-sizing: border-box;
 }
+
+.resposive .react-colorful {
+  width: auto;
+  height: 170px;
+}
+
+.hoverElement:hover {
+  cursor: pointer;
+}
+
+.cardShadow {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px #888888;
+}
