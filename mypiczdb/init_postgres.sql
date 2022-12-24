@@ -11,7 +11,7 @@ CREATE TABLE public.users
     "userName" text,
     "isActive" numeric DEFAULT 1,
 	"avatar" text DEFAULT '',
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     PRIMARY KEY ("userId")
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE public.albums
     "totalItems" numeric DEFAULT 0,
     "albumColor" text DEFAULT 'gray',
     "activeAlbum" numeric DEFAULT 1,
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     CONSTRAINT "albumId" PRIMARY KEY ("albumId"),
     CONSTRAINT "userBelongs" FOREIGN KEY ("belongsTo")
         REFERENCES public.users ("userId") MATCH SIMPLE
@@ -57,7 +57,7 @@ CREATE TABLE public."singleImage"
     "imgUrl" text,
     "activeImage" numeric DEFAULT 1,
     "description" text DEFAULT '',
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     PRIMARY KEY ("imageId"),
     CONSTRAINT "belongsToAlbum" FOREIGN KEY ("belongsToAlbum")
         REFERENCES public.albums ("albumId") MATCH SIMPLE
@@ -86,7 +86,7 @@ CREATE TABLE public."imageNoAlbum"
     "imageUrl" text,
     "activeImage" numeric DEFAULT 1,
     "description" text DEFAULT '',
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     PRIMARY KEY ("imageId"),
     CONSTRAINT "belongsToUser" FOREIGN KEY ("belongsToUser")
         REFERENCES public.users ("userId") MATCH SIMPLE

@@ -30,6 +30,7 @@ const AlbumForm = ({ open, onClose, albumToAdd }) => {
         if (allbumSaved) {
             cancelAlbum();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allbumSaved])
 
     const addNewAlbum = (e) => {

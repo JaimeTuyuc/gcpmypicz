@@ -9,5 +9,6 @@ export const store = configureStore({
         user: userSlice.reducer,
         albums: albumSlice.reducer,
         images: imagesSlice.reducer
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
