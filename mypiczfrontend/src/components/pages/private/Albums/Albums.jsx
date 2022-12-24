@@ -52,12 +52,14 @@ const Albums = () => {
         if (completed) {
             deleteHandler();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [completed])
 
     useEffect(() => {
         if (completeEdit) {
             editHandler();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [completeEdit])
 
     return (

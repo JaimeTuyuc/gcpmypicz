@@ -12,10 +12,8 @@ const SingleAlbum = ({ album, showMoreOptions, moreOptions, albumEle, editHandle
     return (
         <>
             <Box sx={{ backgroundColor: album.albumColor, borderRadius: '5px', position: 'relative', boxShadow: '8px 10px 5px #787878' }}>
-                <MainAlbumContainer
-                    onClick={() => navigate(`album/${album.albumId}`)}
-                >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <MainAlbumContainer>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Typography
                             variant='body1'
                             gutterBottom
@@ -54,7 +52,9 @@ const SingleAlbum = ({ album, showMoreOptions, moreOptions, albumEle, editHandle
                         </div>
                     </Box>
 
-                    <FolderContainer>
+                    <FolderContainer
+                        onClick={() => navigate(`album/${album.albumId}`)}
+                    >
                         {
                             !album.prevImgAlbum ?
                                 (<Icon icon={androidFolder} size={70} />) : 

@@ -36,7 +36,7 @@ exports.deleteSingleImage = async (req, res, next) => {
         const qDelete = `UPDATE "singleImage" SET "activeImage" = '0' WHERE "imageId" = '${imageId}' AND "belongsToAlbum" = '${albumId}' AND "belongsToUser" = ${userId} RETURNING * `;
         const resultDelete = await client.query(qDelete);
         if (resultDelete.rowCount === 1) {
-            return res.status(200).json({ msg: 'Your image was deleted succesfully' });
+            return res.status(200).json({ msg: 'Your image was deleted succesfully', image: resultDelete.rows[0] });
         }
     } catch (error) {
         console.log(error, 'Unable to delete your image')
