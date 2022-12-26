@@ -20,7 +20,7 @@ router.get('/images/:albumId',
 
 router.post('/images/single',
     [
-        check('imageUrl', 'Please choose an image to upload').not().isEmpty(),
+        check('imgUrl', 'Please choose an image to upload').not().isEmpty(),
     ],
     imageController.addImageNoAlbum
 )

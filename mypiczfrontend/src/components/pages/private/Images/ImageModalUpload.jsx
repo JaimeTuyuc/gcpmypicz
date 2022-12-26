@@ -13,9 +13,10 @@ import { closeCircled } from 'react-icons-kit/ionicons/closeCircled';
 import { useDispatch, useSelector } from 'react-redux';
 import { imagesAction } from '../../../../features/imagesSlice';
 
-const ImageUploadModal = ({ open, onClose, saveImageAlbum }) => {
+const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, title = 'New Image' }) => {
     const dispatch = useDispatch();
     const { imageSaved } = useSelector((state) => state.images);
+    const { imageProfileUpdated } = useSelector((state) => state.user);
     const [imageUpload, setImageUpload] = useState('')
     const [tempImg, setTempImg] = useState(null);
     const [imgDesc, setImgDesc] = useState('');
@@ -67,7 +68,16 @@ const ImageUploadModal = ({ open, onClose, saveImageAlbum }) => {
             dispatch(imagesAction.dispatchRequestSuccess(null));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[imageSaved])
+    }, [imageSaved])
+
+    useEffect(() => {
+        if (imageProfileUpdated) {
+            setImageUpload('');
+            setTempImg(null);
+            setImgDesc('')
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[imageProfileUpdated])
 
     const onSubmitImage = (e) => {
         e.preventDefault();
@@ -88,7 +98,7 @@ const ImageUploadModal = ({ open, onClose, saveImageAlbum }) => {
                             gutterBottom
                             textAlign='center'
                             fontWeight='bold'
-                        >New Image</Typography>
+                        >{title}</Typography>
 
                         {
                             !imageUpload && (
@@ -110,19 +120,23 @@ const ImageUploadModal = ({ open, onClose, saveImageAlbum }) => {
                                             <Icon icon={closeCircled} size={25} />
                                         </ButtonClose>
                                     </ImageContainerForm>
-                                    <FormControl
-                                        fullWidth
-                                    >
-                                        <TextField
-                                            label='Image description (Optional)'
-                                            id='imageDes'
-                                            rows={2}
-                                            multiline
-                                            style={{ marginTop: '15px' }}
-                                            value={imgDesc}
-                                            onChange={(e) => setImgDesc(e.target.value)}
-                                        />
-                                    </FormControl>
+                                    {
+                                        withDesc && (
+                                            <FormControl
+                                                fullWidth
+                                            >
+                                                <TextField
+                                                    label='Image description (Optional)'
+                                                    id='imageDes'
+                                                    rows={2}
+                                                    multiline
+                                                    style={{ marginTop: '15px' }}
+                                                    value={imgDesc}
+                                                    onChange={(e) => setImgDesc(e.target.value)}
+                                                />
+                                            </FormControl>
+                                        )
+                                    }
                                 </Box>
                             )
                         }

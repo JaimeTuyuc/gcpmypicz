@@ -41,12 +41,12 @@ const AlbumImages = () => {
 
     const handlerModal = (imgObj) => {
         setModalOpen(true);
-        dispatch(imagesAction.dispatchDetailsImg(imgObj));
+        dispatch(imagesAction.dispatchDetailsImg({img:imgObj, withAlbum: true}));
     }
 
     const closeModalHandler = () => {
         setModalOpen(false);
-        dispatch(imagesAction.dispatchDetailsImg({}));
+        dispatch(imagesAction.dispatchDetailsImg({img:{}, withAlbum: true}));
     }
 
     const resetFlowHandler = () => {

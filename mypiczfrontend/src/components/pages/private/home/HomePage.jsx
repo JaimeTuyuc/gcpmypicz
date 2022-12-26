@@ -4,27 +4,53 @@ import { Box } from '@mui/system';
 import SnippetFolderIcon from '@mui/icons-material/SnippetFolder';
 import WallpaperIcon from '@mui/icons-material/Wallpaper';
 import AlbumForm from '../Albums/NewAlbumForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNewUserAlbum, getAllAlbumsUser } from '../../../../services/albumService';
+import { getAllImagesNoAlbum, addNewImageNoAlbum } from '../../../../services/imageService.js';
 import { albumActions } from '../../../../features/albumsSlice';
 import Albums from '../Albums/Albums';
+import ImagesNoAlbum from '../Images/ImagesNoAlbum';
+import ImageModalUpload from '../Images/ImageModalUpload';
+import { imagesAction } from '../../../../features/imagesSlice';
 
 const HomePage = () => {
-    const distpatch = useDispatch();
+    const dispatch = useDispatch();
+    const { imageSaved } = useSelector((state) => state.images);
     const [open, setOpen] = useState(false);
+    const [ openModal, setOpenModal ] = useState(false);
+    const closeModal = () => {
+        setOpenModal(!openModal);
+    }
+
+    const openModalHandler = () => {
+        setOpenModal(true)
+        dispatch(imagesAction.dispatchRequestSuccess(null));
+    }
+
+    const saveImageNoAlbum = (data) => {
+        console.log(data, 'data?????')
+        dispatch(addNewImageNoAlbum({imgUrl: data.imgUrl, description: data.description}))
+    }
 
     useEffect(() => {
-        distpatch(getAllAlbumsUser());
+        if (imageSaved) {
+            setOpenModal(false);
+        }
+    }, [imageSaved])
+
+    useEffect(() => {
+        dispatch(getAllAlbumsUser());
+        dispatch(getAllImagesNoAlbum());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOpenModal = () => {
         setOpen(!open);
-        distpatch(albumActions.dispatchSavedAlbum(null));
+        dispatch(albumActions.dispatchSavedAlbum(null));
     }
 
     const albumToAdd = (data) => {
-        distpatch(addNewUserAlbum(data));
+        dispatch(addNewUserAlbum(data));
     }
     return (
         <>
@@ -49,6 +75,7 @@ const HomePage = () => {
                                 variant='outlined'
                                 endIcon={<WallpaperIcon />}
                                 color='secondary'
+                                onClick={openModalHandler}
                             >Single Picture</Button>
                         </Grid>
                     </Grid>
@@ -56,8 +83,11 @@ const HomePage = () => {
 
                 <Box sx={{ marginTop: '20px'}}>
                     <Albums />
+
+                    <ImagesNoAlbum />
                 </Box>
             </Box>
+            <ImageModalUpload open={openModal} onClose={closeModal} saveImageAlbum={saveImageNoAlbum} />
         </>
     )
 }

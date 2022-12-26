@@ -11,7 +11,7 @@ const checkAuthUser = async (req, res, next) => {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, jwt_secret_key);
-            const queryUser = `SELECT "userId", "name", "lastName", "email", "userName", "isActive", "avatar", "createdAt" FROM "users" WHERE "userId" = '${decoded.userId}'`;
+            const queryUser = `SELECT "userId", "name", "lastName", "email", "userName", "isActive", "avatar", "createdAt", "bio" FROM "users" WHERE "userId" = '${decoded.userId}'`;
             const result = await client.query(queryUser);
             req.user = {...result.rows[0]};
             return next();

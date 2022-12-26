@@ -18,7 +18,9 @@ exports.loginUser = async (req, res, next) => {
     const { email, password } = req.body;
     const queryUser = `SELECT * FROM "users" WHERE "email" = '${email}'`;
     const result = await client.query(queryUser);
-
+    if (result.rowCount === 1 && result.rows[0].isActive === '0') {
+        return res.json({ msg: 'Please verify your credentials', codeStatus: 3 }); // 3 error
+    }
     if (result.rowCount === 0) {
         return res.json({ msg: 'Please verify your email address', codeStatus: 2 }); // 2 warning
     }
@@ -50,7 +52,8 @@ exports.loginUser = async (req, res, next) => {
         data.isActive = userFound.isActive;
         data.avatar = userFound.avatar;
         data.userName = userFound.userName;
-        
+        data.bio = userFound.bio;
+
         jwt.sign(payload, jwt_secret_key, {
             expiresIn: '24h', //TODO change when in production
         }, (error, token) => {

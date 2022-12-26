@@ -83,7 +83,7 @@ CREATE TABLE public."imageNoAlbum"
     "imageId" serial NOT NULL,
     "belongsToAlbum" integer DEFAULT 0,
     "belongsToUser" serial,
-    "imageUrl" text,
+    "imgUrl" text,
     "activeImage" numeric DEFAULT 1,
     "description" text DEFAULT '',
     "createdAt" timestamp with time zone DEFAULT now(),

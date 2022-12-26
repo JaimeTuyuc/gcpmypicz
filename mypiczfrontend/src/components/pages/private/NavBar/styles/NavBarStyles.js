@@ -18,8 +18,9 @@ export const MainNavContainer = styled.div`
 `;
 
 export const SideBarContent = styled.div`
-    position: absolute;
+    position: fixed;
     background-color: white;
+    z-index: 20;
     top: 0;
     right: 0;
     padding: 1rem 2rem;
@@ -35,11 +36,12 @@ export const SideBarContent = styled.div`
 
 export const OverlayContainer = styled.div`
     background-color: transparent;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 19;
 `;
 
 export const CloseOverlay = styled.div`
