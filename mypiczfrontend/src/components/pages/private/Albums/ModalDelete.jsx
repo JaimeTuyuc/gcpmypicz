@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Button, FormControl, Grid, Modal, Typography } from '@mui/material';
 import { ModalStylesContainer } from './styles/ModalStyles';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -6,7 +6,6 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { AlbumFormContainer } from './styles/AlbumStyles';
 
 const ModalDeleteAlbum = ({ open, onClose, deleteObj, albumDeleteHandler }) => {
-    
     const deleteHandler = (e) => {
         e.preventDefault();
         albumDeleteHandler(deleteObj);

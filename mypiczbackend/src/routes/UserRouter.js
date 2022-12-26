@@ -18,10 +18,6 @@ router.post('/register',
     createAccountController.createAccount
 );
 
-router.put('/update',
-
-);
-
 router.post('/forgot-password',
 
 );
@@ -29,7 +25,5 @@ router.post('/forgot-password',
 router.post('/change-password',
 
 );
-
-
 
 module.exports = router;

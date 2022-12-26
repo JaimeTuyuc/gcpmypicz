@@ -5,7 +5,9 @@ const initialState = {
     token: '',
     userAuth: null,
     isLoggedIn: null,
-    accountCreated: null
+    accountCreated: null,
+    profileUpdated: null,
+    imageProfileUpdated: null,
 }
 
 export const userSlice = createSlice({
@@ -23,6 +25,25 @@ export const userSlice = createSlice({
         },
         dispatchLoggedSuccess(state, action) {
             state.isLoggedIn = action.payload
+        },
+        dispatchUpdateUserInfo(state, action) {
+            state.userInfo = action.payload
+        },
+        dispatchImageUpdatedSuccess(state, action) {
+            state.imageProfileUpdated = action.payload
+        },
+        dispatchProfileUpdatedSuccess(state, action) {
+            state.profileUpdated = action.payload
+            
+        },
+        dispatchLogoutUser(state, action) {
+            state.userInfo = {};
+            state.token = '';
+            state.userAuth = null;
+            state.isLoggedIn = null;
+            state.accountCreated = null;
+            state.profileUpdated = null;
+            state.imageProfileUpdated = null;
         }
     }
 })

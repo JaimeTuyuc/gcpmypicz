@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { MainAlbumContainerImg, SingleImg } from './styles/SingleImageStyles';
-import ImageDetails from './ImageDetails';
-import { useDispatch } from 'react-redux';
-import { imagesAction } from '../../../../features/imagesSlice';
 
 const SingleImage = ({ image, handlerModal }) => {
 

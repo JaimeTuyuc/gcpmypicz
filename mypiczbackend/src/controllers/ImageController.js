@@ -14,7 +14,7 @@ exports.deleteSingleImageNoAlbum = async (req, res, next) => {
         const qDelete = `UPDATE "imageNoAlbum" SET "activeImage" = '0' WHERE "imageId" = '${imageId}' AND "belongsToUser" = ${userId} RETURNING * `;
         const resultDelete = await client.query(qDelete);
         if (resultDelete.rowCount === 1) {
-            return res.status(200).json({ msg: 'Your image was deleted succesfully' });
+            return res.status(200).json({ msg: 'Your image was deleted succesfully', image: resultDelete.rows[0] });
         }
     } catch (error) {
         console.log(error, 'Unable to delete your image');
@@ -90,10 +90,10 @@ exports.addImageNoAlbum = async (req, res, next) => {
         return res.status(400).json({ errors: errors.array() });
     }
     const { userId } = req.user;
-    const { belongsToAlbum, imageUrl, description } = req.body;
+    const { belongsToAlbum, imgUrl, description } = req.body;
     // const queryImage = `INSERT INTO "imageNoAlbum" ("belongsToAlbum", "belongsToUser", "imgUrl") VALUES ($1, $2, $3) RETURNING *`;
-    const queryImage = `INSERT INTO "imageNoAlbum" ("belongsToUser", "imageUrl", "description") VALUES ($1, $2, $3) RETURNING *`;
-    const values = [userId, imageUrl, description];
+    const queryImage = `INSERT INTO "imageNoAlbum" ("belongsToUser", "imgUrl", "description") VALUES ($1, $2, $3) RETURNING *`;
+    const values = [userId, imgUrl, description];
     try {
         const result = await client.query(queryImage, values);
         if (result.rowCount === 1) {

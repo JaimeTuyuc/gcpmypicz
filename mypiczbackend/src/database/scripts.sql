@@ -3,15 +3,16 @@ CREATE TABLE public.users
 (
     "userId" serial NOT NULL,
     name text,
+    "bio" text,
     "lastName" text,
-    email text,
+    email text DEFAULT 'My profile on MyPicz',
     "userToken" text,
     password text,
     "isAuth" numeric DEFAULT 0,
     "userName" text,
     "isActive" numeric DEFAULT 1,
 	"avatar" text DEFAULT '',
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     PRIMARY KEY ("userId")
 );
 
@@ -32,7 +33,7 @@ CREATE TABLE public.albums
     "totalItems" numeric DEFAULT 0,
     "albumColor" text DEFAULT 'gray',
     "activeAlbum" numeric DEFAULT 1,
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     CONSTRAINT "albumId" PRIMARY KEY ("albumId"),
     CONSTRAINT "userBelongs" FOREIGN KEY ("belongsTo")
         REFERENCES public.users ("userId") MATCH SIMPLE
@@ -57,7 +58,7 @@ CREATE TABLE public."singleImage"
     "imgUrl" text,
     "activeImage" numeric DEFAULT 1,
     "description" text DEFAULT '',
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     PRIMARY KEY ("imageId"),
     CONSTRAINT "belongsToAlbum" FOREIGN KEY ("belongsToAlbum")
         REFERENCES public.albums ("albumId") MATCH SIMPLE
@@ -86,7 +87,7 @@ CREATE TABLE public."imageNoAlbum"
     "imageUrl" text,
     "activeImage" numeric DEFAULT 1,
     "description" text DEFAULT '',
-    "createdAt" timestamp with time zone DEFAULT 'now()',
+    "createdAt" timestamp with time zone DEFAULT now(),
     PRIMARY KEY ("imageId"),
     CONSTRAINT "belongsToUser" FOREIGN KEY ("belongsToUser")
         REFERENCES public.users ("userId") MATCH SIMPLE
@@ -143,3 +144,5 @@ COMMENT ON TABLE public."imageNoAlbum"
 -- DELETE FROM "imageNoAlbum" WHERE "imageId" = 3  AND "belongsToUser" = 1
 
 -- UPDATE "imageNoAlbum" SET "activeImage" = '0' WHERE "imageId" = 4 AND "belongsToUser" = 1
+ --ALTER TABLE IF EXISTS public.users
+   -- ADD COLUMN bio text;

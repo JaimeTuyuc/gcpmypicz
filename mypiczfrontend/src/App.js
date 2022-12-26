@@ -4,8 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRutes from './components/pages/private/ProtectedRoutes';
 import Login from '../src/components/pages/public/Login';
 import HomePage from './components/pages/private/home/HomePage';
-import Albums from './components/pages/private/Albums/Albums';
-import Images from './components/pages/private/Images/Images';
+// import Albums from './components/pages/private/Albums/Albums';
+// import Images from './components/pages/private/Images/Images';
 import PublicRoutes from './components/pages/public/PublicRoutes';
 import Register from './components/pages/public/Register';
 import ForgotPassword from './components/pages/public/ForgotPassword';
@@ -23,6 +23,7 @@ const App = () => {
       dispatch(refreshSessionToken(token));
       // TODO change to when making real request
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
@@ -33,7 +34,6 @@ const App = () => {
           <Route path='/app' element={<ProtectedRutes />} >
             <Route index path='/app' element={<HomePage />} />
             <Route path='album/:id' element={<AlbumImages />} />
-            <Route path='images' element={<Images />} />
             <Route path='profile' element={<Profile />} />
           </Route>
           { /* Public Routes*/}

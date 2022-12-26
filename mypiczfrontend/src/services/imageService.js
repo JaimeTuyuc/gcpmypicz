@@ -89,3 +89,88 @@ export const deleteImgService = createAsyncThunk(
         }
     } 
 )
+
+export const getAllImagesNoAlbum = createAsyncThunk(
+    'all_images_no_album',
+    async (data, thunkApi) => {
+        const token = getTokenUser();
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        };
+        try {
+            const result = await axiosClient.get(`/api/mypicz/images/all`, config);
+            if (result.status === 200) {
+                thunkApi.dispatch(imagesAction.dispatchAllImagesNoAlbum(result.data.images));
+            }
+        } catch (error) {
+            console.log(error, 'unable to get all images')
+            toast.error('Something went wrong, try again later', {
+                duration: 3000,
+                position: "top-right",
+            })
+        }
+    }
+)
+
+export const addNewImageNoAlbum = createAsyncThunk(
+    'new_image_no_album',
+    async (data, thunkApi) => {
+        const token = getTokenUser();
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        };
+        try {
+            const result = await axiosClient.post(`/api/mypicz/images/single`, data, config);
+            if (result.status === 200) {
+                toast.success(result.data.msg, {
+                    duration: 3000,
+                    position: "top-right",
+                })
+                thunkApi.dispatch(imagesAction.dispatchRequestSuccess(true));
+                thunkApi.dispatch(imagesAction.dispatchSaveImageNoAlbum(result.data.image))
+            }
+        } catch (error) {
+            console.log(error, 'unable to save your sinlge image')
+            toast.error('Something went wrong, try again later', {
+                duration: 3000,
+                position: "top-right",
+            })
+        }
+    }
+)
+
+export const deleteImageNoAlbum = createAsyncThunk(
+    'delete_image_no_album',
+    async (data, thunkApi) => {
+        const token = getTokenUser();
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        };
+        try {
+            const result = await axiosClient.delete(`/api/mypicz/images/no-album/${data.imageId}`, config);
+            if (result.status === 200) {
+                toast.success(result.data.msg, {
+                    duration: 3000,
+                    position: "top-right",
+                })
+                thunkApi.dispatch(imagesAction.dispatchRequestSuccessImg(true));
+                thunkApi.dispatch(imagesAction.dispatchDeleteNoAlbumSuccess(result.data.image));
+            }
+        } catch (error) {
+            console.log(error, 'Unable to delete your no album image')
+            toast.error('Something went wrong, try again later', {
+                duration: 3000,
+                position: "top-right",
+            })
+        }
+    }
+)

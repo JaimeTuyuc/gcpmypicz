@@ -29,6 +29,7 @@ app.use('/api/mypicz', require('./src/routes/LoginRoute'));
 // Private Routes
 app.use('/api/mypicz', checkAuthUser, require('./src/routes/AlbumRoutes'));
 app.use('/api/mypicz', checkAuthUser, require('./src/routes/ImageRoutes'));
+app.use('/api/mypicz', checkAuthUser, require('./src/routes/ProfileRoutes'));
 
 app.listen((port), () => {
     console.log(`App ready and running on port ${port}`);

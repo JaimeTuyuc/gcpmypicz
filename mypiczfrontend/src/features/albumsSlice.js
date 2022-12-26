@@ -31,6 +31,12 @@ export const albumSlice = createSlice({
         },
         dispatchCompleteEdit(state, action) {
             state.completeEdit = action.payload;
+        },
+        dispatchLogoutAlbum(state, action) {
+            state.allAlbums = [];
+            state.allbumSaved = null;
+            state.completed = null;
+            state.completeEdit = null;
         }
     }
 })

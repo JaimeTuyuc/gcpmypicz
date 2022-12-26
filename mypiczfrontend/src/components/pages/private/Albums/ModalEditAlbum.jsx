@@ -26,6 +26,7 @@ const ModalEditAlbum = ({open, albumDataEdit, onClose, albumEditedHandler}) => {
     useEffect(() => {
         setColor(albumDataEdit.albumColor)
         setAlbumData({ ...albumData, albumName: albumDataEdit.albumName })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [albumDataEdit]);
 
     const albumToEdit = { ...albumDataEdit };

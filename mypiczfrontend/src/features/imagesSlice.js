@@ -6,7 +6,7 @@ const initialState = {
     imageToUpload: {},
     imageSaved: null,
     imageDeleted: null,
-    imageDetails: {}
+    imageDetails: { img: {}, withAlbum:false},
 }
 
 export const imagesSlice = createSlice({
@@ -33,6 +33,23 @@ export const imagesSlice = createSlice({
         },
         dispatchImgDeletedSuccess(state, action) {
             state.allImagesByAlbum = state.allImagesByAlbum.filter((img) => img.imageId !== action.payload.imageId);
+        },
+        dispatchAllImagesNoAlbum(state, action) {
+            state.allImagesNoAlbum = action.payload
+        },
+        dispatchSaveImageNoAlbum(state, action) {
+            state.allImagesNoAlbum = [...state.allImagesNoAlbum, action.payload]
+        },
+        dispatchDeleteNoAlbumSuccess(state, action) {
+            state.allImagesNoAlbum = state.allImagesNoAlbum.filter((img) => img.imageId !== action.payload.imageId);
+        },
+        dispatchLogoutImages(state, action) {
+            state.allImagesNoAlbum = [];
+            state.allImagesByAlbum = [];
+            state.imageToUpload = {};
+            state.imageSaved = null;
+            state.imageDeleted = null;
+            state.imageDetails = { img: {}, withAlbum:false};
         }
     }
 })

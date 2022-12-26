@@ -24,8 +24,11 @@ const Albums = () => {
             setMoreOptions({ ...moreOptions, showModal: false })
         }
     }
+    const openDeleteHandler = () => {
+        setIsDeleteAlbum(true)
+    }
     const deleteHandler = () => {
-        setIsDeleteAlbum(!isDeleteAlbum);
+        setIsDeleteAlbum(false);
         if (isDeleteAlbum) {
             setDeleteObj({})
             setMoreOptions({ ...moreOptions, showModal: false })
@@ -70,7 +73,7 @@ const Albums = () => {
                         allAlbums.map((album) => {
                             return (
                                 <Grid item key={album.albumId} xs={12} sm={6} md={2}>
-                                    <SingleAlbum album={album} moreOptions={showModal} albumEle={albumEle} showMoreOptions={showMoreOptions} editHandler={editHandler} deleteHandler={deleteHandler} setDeleteObj={setDeleteObj} />
+                                    <SingleAlbum album={album} moreOptions={showModal} albumEle={albumEle} showMoreOptions={showMoreOptions} editHandler={editHandler} deleteHandler={openDeleteHandler} setDeleteObj={setDeleteObj} />
                                 </Grid>
                             )
                         })

@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../settings');
 
 exports.createAccount = async (req, res, next) => {
-
     const client = await connectDB();
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -27,7 +26,7 @@ exports.createAccount = async (req, res, next) => {
     } catch (error) {
         console.log(error, 'unable to crete your account');
         res.status(500).json({ msg: 'Unable to create your account' });
-    }
+    } 
 }
 
 exports.refreshSessionUser = async (req, res, next) => {
@@ -37,21 +36,16 @@ exports.refreshSessionUser = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, jwt_secret_key)
-        const queryUser = `SELECT "userId", "name", "lastName", "email", "userName", "isActive", "avatar", "createdAt" FROM "users" WHERE "userId" = '${decoded.userId}'`;
+        const queryUser = `SELECT "userId", "name", "lastName", "email", "userName", "isActive", "avatar", "createdAt", "bio" FROM "users" WHERE "userId" = '${decoded.userId}' AND "isActive" = '1'`;
         const result = await client.query(queryUser);
-        return res.status(200).json({msg: 'Welcome back', user: result.rows[0], codeStatus: 1})
+        if (result.rowCount === 0) {
+            return res.status(200).json({ msg: 'Unable to proccess your requuest', user: {}, codeStatus: 3, token: ''})
+        }
+        if (result.rowCount === 1) {
+            return res.status(200).json({msg: 'Welcome back', user: result.rows[0], codeStatus: 1, token: token})
+        }
     } catch (error) {
         console.log(error, 'unable to refresh');
         return res.status(500).json({ msg: 'Please login back', codeStatus: 3 });
-    }
-}
-
-exports.updateUserInfo = async (req, res, next) => {
-
-    try {
-        
-    } catch (error) {
-        console.log(error, 'Unable to update your info');
-        res.status(500).json({ msg: 'Unable to update your info' });
     }
 }

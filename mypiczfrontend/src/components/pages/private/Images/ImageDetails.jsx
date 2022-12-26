@@ -6,7 +6,7 @@ import { MainImage } from './styles/ModalDetailsImg';
 import { Box } from '@mui/system';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteModalImg from './DeleteImageModal';
-import { deleteImgService } from '../../../../services/imageService';
+import { deleteImageNoAlbum, deleteImgService } from '../../../../services/imageService';
 import { imagesAction } from '../../../../features/imagesSlice';
 
 const ImageDetails = ({ open, onClose}) => {
@@ -23,7 +23,7 @@ const ImageDetails = ({ open, onClose}) => {
     }
 
     const parseTime = (tempDate) => {
-        if (JSON.stringify(imageDetails) !== '{}') {
+        if (JSON.stringify(imageDetails.img) !== '{}') {
             const date = new Date(tempDate.createdAt);
             const timeFormated = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
             return timeFormated
@@ -31,13 +31,19 @@ const ImageDetails = ({ open, onClose}) => {
     }
 
     const confirmDeleteImg = (data) => {
-        dispatch(deleteImgService({ albumId: data.belongsToAlbum, imageId: data.imageId}));
+        if (data.withAlbum) {
+            dispatch(deleteImgService({ albumId: data.img.belongsToAlbum, imageId: data.img.imageId}));
+        }
+
+        if (!data.withAlbum) {
+            dispatch(deleteImageNoAlbum(data.img));
+        }
     }
 
     useEffect(() => {
         if (imageDeleted) {
             onClose();
-            dispatch(imagesAction.dispatchDetailsImg({}));
+            dispatch(imagesAction.dispatchDetailsImg({img:{}, withAlbum: false}));
             closeChildModal();
         };
         return () => {
@@ -61,21 +67,21 @@ const ImageDetails = ({ open, onClose}) => {
                     >Details</Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'center'}}>
-                        <MainImage src={imageDetails.imgUrl} alt='MyPicz' />
+                        <MainImage src={imageDetails.img.imgUrl} alt='MyPicz' />
                     </Box>
 
                     <Box sx={{ marginY: '15px'}}>
                         <Typography
                             variant='body1'
                             gutterBottom
-                        >{imageDetails.description}</Typography>
+                        >{imageDetails.img.description}</Typography>
                         {
-                            imageDetails && (
+                            imageDetails.img && (
                                 <Typography
                                     variant='body2'
                                 >
                                     <span>Pubish at: </span>
-                                    {parseTime(imageDetails)}
+                                    {parseTime(imageDetails.img)}
                                 </Typography>
                             )
                         }
