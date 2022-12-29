@@ -28,7 +28,6 @@ const HomePage = () => {
     }
 
     const saveImageNoAlbum = (data) => {
-        console.log(data, 'data?????')
         dispatch(addNewImageNoAlbum({imgUrl: data.imgUrl, description: data.description}))
     }
 
