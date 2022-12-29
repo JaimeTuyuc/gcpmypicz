@@ -36,7 +36,6 @@ export const loginUserService = createAsyncThunk(
     async (data, thunkApi) => {
         try {
             const result = await axiosClient.post('/api/mypicz/login', data);
-            console.log(result.data, 'login')
             if (result.status === 200 && result.data.codeStatus === 3) {
                 toast.error(result.data.msg, {
                     duration: 3000,

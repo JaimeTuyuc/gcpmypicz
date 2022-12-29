@@ -19,7 +19,6 @@ export const addNewUserAlbum = createAsyncThunk(
         };
         try {
             const result = await axiosClient.post(`/api/mypicz/albums`, data, config);
-            console.log(result, 'datos guardados');
             if (result.status === 200) {
                 toast.success(result.data.msg, {
                     duration: 3000,

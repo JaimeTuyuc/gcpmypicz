@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: gcp-docker-app
+    # image: gcr.io/gcp-my-picz/frontendpiczamd:latest # AMD
+    image: gcr.io/gcp-my-picz/frontendpiczarm:latest # ARM # Local para mac
+    ports:
+      - 8080:80
+    env_file:
+      - .env
