@@ -2,9 +2,9 @@ runtime: nodejs16
 service: default
 handlers: 
   - url: /(.*\..+)$
-    static_files: dist/\1
-    upload: dist/(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
 
   - url: /.*
-    static_files: dist/index.html
-    upload: dist/index.html
+    static_files: build/index.html
+    upload: build/index.html
