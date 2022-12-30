@@ -26,4 +26,5 @@ yarn-error.log*
 
 /commands
 
-/*.env
+*/.env
+/.env
