@@ -1,7 +1,6 @@
 import { Button, FormControl, Link, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react'
-import img from '../../imgs/bg2.svg'
 import img1 from '../../imgs/sea.svg';
 import bg from '../../imgs/bg.svg';
 import { ContentContainer, LoginContainer, SignUpContainer } from './styles/LoginStyles';
