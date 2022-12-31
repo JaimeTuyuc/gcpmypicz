@@ -6,7 +6,8 @@ const initialState = {
     imageToUpload: {},
     imageSaved: null,
     imageDeleted: null,
-    imageDetails: { img: {}, withAlbum:false},
+    imageDetails: { img: {}, withAlbum: false },
+    friendsProfileInfo: { user: {}, publicImgs: []}
 }
 
 export const imagesSlice = createSlice({
@@ -42,6 +43,10 @@ export const imagesSlice = createSlice({
         },
         dispatchDeleteNoAlbumSuccess(state, action) {
             state.allImagesNoAlbum = state.allImagesNoAlbum.filter((img) => img.imageId !== action.payload.imageId);
+        },
+        dispatchFriendsInfoSuccess(state, action) {
+            state.friendsProfileInfo.user = action.payload.userInfo;
+            state.friendsProfileInfo.publicImgs = action.payload.publicImgs;
         },
         dispatchLogoutImages(state, action) {
             state.allImagesNoAlbum = [];

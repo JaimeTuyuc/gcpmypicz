@@ -44,9 +44,9 @@ exports.createNewAlbum = async (req, res, next) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { albumName, albumColor } = req.body;
-    const queryAlbum = `INSERT INTO "albums" ("belongsTo", "albumName", "albumColor", "activeAlbum") VALUES ($1, $2, $3, $4) RETURNING *`;
-    const values = [userId, albumName, albumColor, 1];
+    const { albumName, albumColor, prevImgAlbum } = req.body;
+    const queryAlbum = `INSERT INTO "albums" ("belongsTo", "albumName", "albumColor", "activeAlbum", "prevImgAlbum") VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const values = [userId, albumName, albumColor, 1, prevImgAlbum];
     try {
         const result = await client.query(queryAlbum, values);
         if (result.rowCount === 1) {

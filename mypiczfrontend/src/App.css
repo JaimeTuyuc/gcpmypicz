@@ -16,3 +16,8 @@
   padding: 10px;
   box-shadow: 5px 10px #888888;
 }
+
+.findFriends {
+  text-decoration: none;
+  color: rgba(243, 51, 247, 1);
+}

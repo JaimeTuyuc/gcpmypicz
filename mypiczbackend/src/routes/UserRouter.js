@@ -18,12 +18,9 @@ router.post('/register',
     createAccountController.createAccount
 );
 
-router.post('/forgot-password',
-
+router.get('/find-friends/:userName',
+    createAccountController.getFriendsInfo
 );
 
-router.post('/change-password',
-
-);
 
 module.exports = router;

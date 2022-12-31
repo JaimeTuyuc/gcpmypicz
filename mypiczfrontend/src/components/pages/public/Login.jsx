@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react'
 import img from '../../imgs/bg2.svg'
 import img1 from '../../imgs/sea.svg';
+import bg from '../../imgs/bg.svg';
 import { ContentContainer, LoginContainer, SignUpContainer } from './styles/LoginStyles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -51,7 +52,7 @@ const Login = () => {
     }
     return (
         <>
-            <LoginContainer img={img} img1={img1} />
+            <LoginContainer img={bg} img1={img1} />
             <SignUpContainer>
                 <ContentContainer
                     onSubmit={loginUser}

@@ -9,7 +9,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import ImageModalUpload from '../Images/ImageModalUpload';
 import SingleImage from '../Images/SingleImage';
-import ImageDetails from '../Images/ImageDetails';
+import ImageDetailsComponent from '../Images/ImageDetails';
 import { imagesAction } from '../../../../features/imagesSlice';
 
 const AlbumImages = () => {
@@ -101,15 +101,11 @@ const AlbumImages = () => {
                     </Box>
                 </Box>
 
-                <ImageModalUpload open={openModal} onClose={closeModal} saveImageAlbum={saveImageAlbum} />
-                <ImageDetails open={modalOpen} onClose={closeModalHandler} />
+                <ImageModalUpload open={openModal} onClose={closeModal} saveImageAlbum={saveImageAlbum} withPublic={false} />
+                <ImageDetailsComponent open={modalOpen} onClose={closeModalHandler} withDelete={true} />
             </Box>
         </>
     )
 }
 
 export default AlbumImages;
-
-//  "react-firebase-file-uploader":
-
-// firebase

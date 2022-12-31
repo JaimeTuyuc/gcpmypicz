@@ -6,7 +6,7 @@ import { BurgerContainer, MainNavContainer } from './styles/NavBarStyles';
 import MenuOptions from './MenuOptions';
 import { useNavigate } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = ({isFindFriends}) => {
     const navigate = useNavigate()
     const [openSideBar, setOpenSideBar] = useState(false);
 
@@ -32,12 +32,15 @@ const NavBar = () => {
                         
                     </Typography>
                 </Box>
-
-                <BurgerContainer
-                    onClick={closeContentModal}
-                >
-                    <Icon size={40} icon={thMenu} />
-                </BurgerContainer>
+                {
+                    isFindFriends && (
+                        <BurgerContainer
+                            onClick={closeContentModal}
+                        >
+                            <Icon size={40} icon={thMenu} />
+                        </BurgerContainer>
+                    )
+                }
             </MainNavContainer>
 
             {

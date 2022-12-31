@@ -1,9 +1,9 @@
-import React from 'react';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import { MainAlbumContainerImg, SingleImg } from './styles/SingleImageStyles';
+import React from 'react';
+import { MainAlbumContainerImg, SingleImg } from '../../private/Images/styles/SingleImageStyles';
 
-const SingleImage = ({ image, handlerModal }) => {
+const SingleImageRender = ({ image, handlerModal }) => {
 
     return (
         <>
@@ -13,7 +13,7 @@ const SingleImage = ({ image, handlerModal }) => {
                         <SingleImg src={image.imgUrl} alt='MyPic' />
                     </Box>
 
-                    <Box sx={{ marginY: '15px'}}>
+                    <Box sx={{ marginY: '15px' }}>
                         <Button
                             variant='contained'
                             color='secondary'
@@ -28,4 +28,4 @@ const SingleImage = ({ image, handlerModal }) => {
     )
 }
 
-export default SingleImage;
+export default SingleImageRender;

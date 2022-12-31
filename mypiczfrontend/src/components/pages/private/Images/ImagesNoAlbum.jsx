@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import SingleImage from './SingleImage';
 import { useDispatch } from 'react-redux';
 import { imagesAction } from '../../../../features/imagesSlice';
-import ImageDetails from './ImageDetails';
+import ImageDetailsComponent from './ImageDetails';
 
 const ImagesNoAlbum = () => {
     const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const ImagesNoAlbum = () => {
                     </Grid>
                 </Box>
 
-                <ImageDetails open={modalOpen} onClose={closeModalHandler} />
+                <ImageDetailsComponent open={modalOpen} onClose={closeModalHandler} withDelete={true} />
             </Box>
         </>
     )
