@@ -66,7 +66,7 @@ const MenuOptions = ({ closeModal, openSideBar }) => {
                                 sx={{ marginY: '10px' }}
                                 //onClick={() => { navigate('app/find-friends'); closeModal()}}
                             >
-                                <a className='findFriends' href='https://gcp-my-picz.uc.r.appspot.com/app/find-friends' target='_blank' rel="noreferrer" >Find Friends</a>
+                                <a className='findFriends' href='http://gcp-my-picz.uc.r.appspot.com/app/find-friends' target='_blank' rel="noreferrer" >Find Friends</a>
                             </Link>
                         </Box>
                         <Box
