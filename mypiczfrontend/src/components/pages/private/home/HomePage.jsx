@@ -28,7 +28,7 @@ const HomePage = () => {
     }
 
     const saveImageNoAlbum = (data) => {
-        dispatch(addNewImageNoAlbum({imgUrl: data.imgUrl, description: data.description}))
+        dispatch(addNewImageNoAlbum({imgUrl: data.imgUrl, description: data.description, isPublicImg: data.isPublicImg}))
     }
 
     useEffect(() => {

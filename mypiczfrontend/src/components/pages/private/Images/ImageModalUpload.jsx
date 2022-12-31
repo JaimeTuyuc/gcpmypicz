@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, FormControl, Grid, Modal, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, FormControl, Grid, IconButton, Modal, TextField, Tooltip, Typography } from '@mui/material';
 import { ModalStylesContainer } from '../Albums/styles/ModalStyles';
 import { useDropzone } from 'react-dropzone';
 import { ButtonClose, DragableZoneContainer, ImageContainerForm, ImageContent, ModalContentContainer } from './styles/ModalImageStyles';
@@ -12,14 +12,16 @@ import Icon from 'react-icons-kit';
 import { closeCircled } from 'react-icons-kit/ionicons/closeCircled';
 import { useDispatch, useSelector } from 'react-redux';
 import { imagesAction } from '../../../../features/imagesSlice';
+import InfoIcon from '@mui/icons-material/Info';
 
-const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, title = 'New Image' }) => {
+const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, title = 'New Image', withPublic = true }) => {
     const dispatch = useDispatch();
     const { imageSaved } = useSelector((state) => state.images);
     const { imageProfileUpdated } = useSelector((state) => state.user);
     const [imageUpload, setImageUpload] = useState('')
     const [tempImg, setTempImg] = useState(null);
     const [imgDesc, setImgDesc] = useState('');
+    const [publicImg, setPublicImg] = useState(false);
     const { acceptedFiles, getInputProps, getRootProps, isFocused, isDragAccept, isDragReject } = useDropzone({
         accept: {
             'image/png': ['.png', '.jpg', '.jpeg'],
@@ -78,10 +80,11 @@ const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, titl
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[imageProfileUpdated])
-
+    
+    const valuePublic = publicImg ? 1 : 0;
     const onSubmitImage = (e) => {
         e.preventDefault();
-        saveImageAlbum({ imgUrl: imageUpload, description: imgDesc });
+        saveImageAlbum({ imgUrl: imageUpload, description: imgDesc, isPublicImg: valuePublic });
     }
     return (
         <>
@@ -122,19 +125,43 @@ const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, titl
                                     </ImageContainerForm>
                                     {
                                         withDesc && (
-                                            <FormControl
-                                                fullWidth
-                                            >
-                                                <TextField
-                                                    label='Image description (Optional)'
-                                                    id='imageDes'
-                                                    rows={2}
-                                                    multiline
-                                                    style={{ marginTop: '15px' }}
-                                                    value={imgDesc}
-                                                    onChange={(e) => setImgDesc(e.target.value)}
-                                                />
-                                            </FormControl>
+                                            <>
+                                                <FormControl
+                                                    fullWidth
+                                                >
+                                                    <TextField
+                                                        label='Image description (Optional)'
+                                                        id='imageDes'
+                                                        rows={2}
+                                                        multiline
+                                                        style={{ marginTop: '15px' }}
+                                                        value={imgDesc}
+                                                        onChange={(e) => setImgDesc(e.target.value)}
+                                                    />
+                                                </FormControl>
+                                                {
+                                                    withPublic && (
+                                                        <FormControl
+                                                            fullWidth
+                                                        >
+                                                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                                                <Checkbox onChange={(e) => setPublicImg(e.target.checked)} />
+                                                                <Typography>Do you want this image to be public?</Typography>
+                                                                <Tooltip
+                                                                    placement='bottom'
+                                                                    sx={{ fontSize: '25px' }}
+                                                                    title="By marking the image as public, other users can see the image on the find friends page"
+                                                                >
+                                                                    <IconButton>
+                                                                        <InfoIcon />
+                                                                    </IconButton>
+                                                                </Tooltip>
+                                                            </Box>
+                                                        </FormControl>
+
+                                                    )
+                                                }
+                                            </>
                                         )
                                     }
                                 </Box>

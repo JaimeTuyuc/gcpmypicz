@@ -4,8 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRutes from './components/pages/private/ProtectedRoutes';
 import Login from '../src/components/pages/public/Login';
 import HomePage from './components/pages/private/home/HomePage';
-// import Albums from './components/pages/private/Albums/Albums';
-// import Images from './components/pages/private/Images/Images';
+import FindFriends from './components/pages/public/Friends/FindFriends';
 import PublicRoutes from './components/pages/public/PublicRoutes';
 import Register from './components/pages/public/Register';
 import ForgotPassword from './components/pages/public/ForgotPassword';
@@ -41,6 +40,7 @@ const App = () => {
             <Route index path='/' element={<Login />} />
             <Route path='register' element={<Register />} />
             <Route path='forgot-password' element={<ForgotPassword />} />
+            <Route path='app/find-friends' element={<FindFriends />} />
           </Route>
         </Routes>
 

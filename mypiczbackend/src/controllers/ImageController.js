@@ -90,10 +90,10 @@ exports.addImageNoAlbum = async (req, res, next) => {
         return res.status(400).json({ errors: errors.array() });
     }
     const { userId } = req.user;
-    const { belongsToAlbum, imgUrl, description } = req.body;
+    const { belongsToAlbum, imgUrl, description, isPublicImg } = req.body;
     // const queryImage = `INSERT INTO "imageNoAlbum" ("belongsToAlbum", "belongsToUser", "imgUrl") VALUES ($1, $2, $3) RETURNING *`;
-    const queryImage = `INSERT INTO "imageNoAlbum" ("belongsToUser", "imgUrl", "description") VALUES ($1, $2, $3) RETURNING *`;
-    const values = [userId, imgUrl, description];
+    const queryImage = `INSERT INTO "imageNoAlbum" ("belongsToUser", "imgUrl", "description", "isPublicImg") VALUES ($1, $2, $3, $4) RETURNING *`;
+    const values = [userId, imgUrl, description, isPublicImg];
     try {
         const result = await client.query(queryImage, values);
         if (result.rowCount === 1) {
@@ -114,9 +114,9 @@ exports.addNewImage = async (req, res, next) => {
         return res.status(400).json({ errors: errors.array() });
     }
     const { userId } = req.user;
-    const { belongsToAlbum, imgUrl, description } = req.body;
-    const queryImage = `INSERT INTO "singleImage" ("belongsToAlbum", "belongsToUser", "imgUrl", "description") VALUES ($1, $2, $3, $4) RETURNING *`;
-    const values = [belongsToAlbum, userId, imgUrl, description ];
+    const { belongsToAlbum, imgUrl, description, isPublicImg } = req.body;
+    const queryImage = `INSERT INTO "singleImage" ("belongsToAlbum", "belongsToUser", "imgUrl", "description", "isPublicImg") VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const values = [belongsToAlbum, userId, imgUrl, description, isPublicImg ];
     try {
         const result = await client.query(queryImage, values);
         if (result.rowCount === 1) {

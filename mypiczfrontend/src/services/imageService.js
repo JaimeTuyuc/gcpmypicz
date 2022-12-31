@@ -174,3 +174,21 @@ export const deleteImageNoAlbum = createAsyncThunk(
         }
     }
 )
+
+export const getFriendsInfo = createAsyncThunk(
+    'get_users_info',
+    async (userName, thunkApi) => {
+        try {
+            const result = await axiosClient.get(`/api/mypicz/find-friends/${userName}`);
+            if (result.status === 200) {
+                thunkApi.dispatch(imagesAction.dispatchFriendsInfoSuccess({ userInfo: result.data.user, publicImgs: result.data.publicImgs }))
+            }
+        } catch (error) {
+            console.log(error, 'unable to get your friends info')
+            toast.error('Something went wrong, try again later', {
+                duration: 3000,
+                position: "top-right",
+            })
+        }
+    }
+)

@@ -7,6 +7,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import { HexColorPicker } from 'react-colorful';
 import { useSelector } from 'react-redux';
+import ImageModalUpload from '../Images/ImageModalUpload';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 const AlbumForm = ({ open, onClose, albumToAdd }) => {
     const { allbumSaved } = useSelector((state) => state.albums);
@@ -16,6 +18,8 @@ const AlbumForm = ({ open, onClose, albumToAdd }) => {
         albumName: '',
     });
     const [albumE, setAlbumE] = useState(false);
+    const [openModalImg, setOpenModalImg] = useState(false);
+    const [imageAlbum, setAlbumImage] = useState('')
     const { albumName } = albumData;
     
     const cancelAlbum = () => {
@@ -33,10 +37,24 @@ const AlbumForm = ({ open, onClose, albumToAdd }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allbumSaved])
 
+    const openModalImgAlbum = () => {
+        setOpenModalImg(true);
+    }
+
+    const closeModalImgAlbum = () => {
+        setOpenModalImg(false);
+    }
+
+    const handleImgAlbum = (data) => {
+        setAlbumImage(data.imgUrl);
+        closeModalImgAlbum()
+    }
     const addNewAlbum = (e) => {
         e.preventDefault();
-        albumToAdd({albumName, albumColor: color })
+        albumToAdd({albumName, albumColor: color, prevImgAlbum: imageAlbum })
     }
+
+    
     return (
         <>
             <Modal
@@ -74,7 +92,7 @@ const AlbumForm = ({ open, onClose, albumToAdd }) => {
                             </FormControl>
 
                             <FormControl
-                                style={{ marginTop: '20px' }}
+                                style={{ marginTop: '20px', display: 'flex', flexDirection: 'row', gap: '15px' }}
                             >
                                 <Button
                                     fullWidth
@@ -82,7 +100,15 @@ const AlbumForm = ({ open, onClose, albumToAdd }) => {
                                     endIcon={<PaletteIcon />}
                                     color='secondary'
                                     onClick={() => setOpenColor(!openColor)}
-                                >{ openColor ? 'Hidde' : 'Album Color' }</Button>
+                                >{openColor ? 'Hidde' : 'Album Color'}</Button>
+                                
+                                <Button
+                                    fullWidth
+                                    variant='contained'
+                                    endIcon={<CameraAltIcon />}
+                                    color='secondary'
+                                    onClick={openModalImgAlbum}
+                                >Image Album</Button>
                             </FormControl>
                             {
                                 openColor && (
@@ -127,6 +153,8 @@ const AlbumForm = ({ open, onClose, albumToAdd }) => {
                     </Box>
                 </ModalStylesContainer>
             </Modal>
+
+            <ImageModalUpload open={openModalImg} onClose={closeModalImgAlbum} saveImageAlbum={handleImgAlbum} withDesc={false} title='Album Image' />
         </>
     )
 }

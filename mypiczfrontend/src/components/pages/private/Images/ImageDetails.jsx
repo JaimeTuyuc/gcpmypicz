@@ -9,7 +9,7 @@ import DeleteModalImg from './DeleteImageModal';
 import { deleteImageNoAlbum, deleteImgService } from '../../../../services/imageService';
 import { imagesAction } from '../../../../features/imagesSlice';
 
-const ImageDetails = ({ open, onClose}) => {
+const ImageDetailsComponent = ({ open, onClose, withDelete }) => {
     const dispatch = useDispatch();
     const { imageDetails, imageDeleted } = useSelector((state) => state.images);
     const [openChild, setOpenChild] = useState(false);
@@ -87,16 +87,20 @@ const ImageDetails = ({ open, onClose}) => {
                         }
                     </Box>
 
-                    <Box>
-                        <Button
-                            variant='contained'
-                            color='secondary'
-                            startIcon={<DeleteForeverIcon />}
-                            onClick={openChildModal}
-                        >
-                            Delete
-                        </Button>
-                    </Box>
+                    {
+                        withDelete && (
+                            <Box>
+                                <Button
+                                    variant='contained'
+                                    color='secondary'
+                                    startIcon={<DeleteForeverIcon />}
+                                    onClick={openChildModal}
+                                >
+                                    Delete
+                                </Button>
+                            </Box>
+                        )
+                    }
                 </ModalStylesContainer>
             </Modal>
 
@@ -105,4 +109,4 @@ const ImageDetails = ({ open, onClose}) => {
     )
 }
 
-export default ImageDetails
+export default ImageDetailsComponent

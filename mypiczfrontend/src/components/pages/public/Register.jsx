@@ -18,19 +18,21 @@ const Login = () => {
     const [userData, setUserData] = useState({
         name: '',
         lastName: '',
+        userName: '',
         email: '',
         password: '',
         avatar: ''
     });
-    const { name, lastName, email, password, avatar } = userData;
+    const { name, lastName, email, password, avatar, userName } = userData;
 
     const [userError, setUserError] = useState({
         nameE: false,
         lastNameE: false,
+        userNameE: false,
         emailE: false,
         passwordE: false
     });
-    const { nameE, lastNameE, emailE, passwordE } = userError;
+    const { nameE, lastNameE, emailE, passwordE, userNameE } = userError;
 
     const [validEmail, setIsValidEmail] = useState(false);
     // Vlidate email
@@ -63,6 +65,7 @@ const Login = () => {
             setUserData({
                 name: '',
                 lastName: '',
+                userName: '',
                 password: '',
                 email: '',
                 avatar: ''
@@ -70,6 +73,7 @@ const Login = () => {
             setUserError({
                 nameE: false,
                 lastNameE: false,
+                userNameE: false,
                 emailE: false,
                 passwordE: false
             })
@@ -77,11 +81,11 @@ const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accountCreated])
 
-    const isDisabled = !name || !lastName || !email || !password || password.length < 6 || validEmail; 
+    const isDisabled = !name || !lastName || !email || !userName || !password || password.length < 6 || validEmail || /\s/.test(userName); 
 
     const onSubmitUser = (e) => {
         e.preventDefault();
-        dispatch(registerNewUser({ name, lastName, email, password, avatar }));
+        dispatch(registerNewUser({ name, lastName, userName, email, password, avatar }));
     }
     
     return (
@@ -133,6 +137,22 @@ const Login = () => {
                             onBlur={() => setUserError({ ...userError, lastNameE: true })}
                             error={lastNameE && lastName === ''}
                             helperText={lastNameE && lastName === '' && 'Required field *'}
+                        />
+                    </FormControl>
+                    <FormControl
+                        fullWidth
+                        style={{ marginTop: '10px' }}
+                    >
+                        <TextField
+                            id='userName'
+                            label='User Name'
+                            type='text'
+                            color='success'
+                            value={userName}
+                            onChange={e => setUserData({ ...userData, userName: e.target.value })}
+                            onBlur={() => setUserError({ ...userError, userNameE: true })}
+                            error={userNameE && userName === '' ? true : /\s/.test(userName)}
+                            helperText={userNameE && userName === '' ? 'Required field *' : /\s/.test(userName) && 'Must be without spaces'}
                         />
                     </FormControl>
                     <FormControl

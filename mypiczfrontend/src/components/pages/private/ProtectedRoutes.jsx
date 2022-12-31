@@ -12,7 +12,7 @@ const ProtectedRutes = () => {
             <p>Loading Page or custom spinner</p>
         ) : userAuth ? (
             <MainContainer>
-                <NavBar />
+                <NavBar isFindFriends={true} />
                     <ContentContainer>
                         <Outlet />
                     </ContentContainer>
