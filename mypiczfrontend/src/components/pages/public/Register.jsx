@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import img from '../../imgs/bg2.svg'
+import img from '../../imgs/bg.svg'
 import img1 from '../../imgs/sea.svg';
 import { ContentContainer, GravatarContainer, GravatarImg, LoginContainer, SignUpContainer } from './styles/LoginStyles';
 import { FormControl, TextField, Button, Typography, Link } from '@mui/material';
