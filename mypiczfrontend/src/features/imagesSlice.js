@@ -48,6 +48,12 @@ export const imagesSlice = createSlice({
             state.friendsProfileInfo.user = action.payload.userInfo;
             state.friendsProfileInfo.publicImgs = action.payload.publicImgs;
         },
+        dispatchUpdateImageNoAlbum(state, action) {
+            state.allImagesNoAlbum = state.allImagesNoAlbum.map((image) => image.imageId === action.payload.imageId ? action.payload : image);
+        },
+        dispatchUpdateImageWithAlbum(state, action) {
+            state.allImagesByAlbum = state.allImagesByAlbum.map((image) => image.imageId === action.payload.imageId ? action.payload : image);
+        },
         dispatchLogoutImages(state, action) {
             state.allImagesNoAlbum = [];
             state.allImagesByAlbum = [];

@@ -6,8 +6,11 @@ import { MainImage } from './styles/ModalDetailsImg';
 import { Box } from '@mui/system';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteModalImg from './DeleteImageModal';
-import { deleteImageNoAlbum, deleteImgService } from '../../../../services/imageService';
+import { addFavoriteImage, deleteImageNoAlbum, deleteImgService } from '../../../../services/imageService';
 import { imagesAction } from '../../../../features/imagesSlice';
+import { Icon } from 'react-icons-kit';
+import { heartOutline } from 'react-icons-kit/oct/heartOutline';
+import { heart } from 'react-icons-kit/oct/heart';
 
 const ImageDetailsComponent = ({ open, onClose, withDelete }) => {
     const dispatch = useDispatch();
@@ -52,6 +55,21 @@ const ImageDetailsComponent = ({ open, onClose, withDelete }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageDeleted]);
 
+    const favoriteHandler = (value) => {
+        const imageCopy = { ...imageDetails.img }
+        if (value === 0) {
+            imageCopy.isFavorite = 1
+            dispatch(imagesAction.dispatchDetailsImg({ img: imageCopy, withAlbum: imageDetails.withAlbum }))
+            dispatch(addFavoriteImage({ img: imageCopy, withAlbum: imageDetails.withAlbum }))
+        }
+
+        if (value === 1) {
+            imageCopy.isFavorite = 0
+            dispatch(imagesAction.dispatchDetailsImg({ img: imageCopy, withAlbum: imageDetails.withAlbum }))
+            dispatch(addFavoriteImage({ img: imageCopy, withAlbum: imageDetails.withAlbum }))
+        }
+    }
+
     return (
         <>
             <Modal
@@ -89,7 +107,7 @@ const ImageDetailsComponent = ({ open, onClose, withDelete }) => {
 
                     {
                         withDelete && (
-                            <Box>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                                 <Button
                                     variant='contained'
                                     color='secondary'
@@ -98,6 +116,10 @@ const ImageDetailsComponent = ({ open, onClose, withDelete }) => {
                                 >
                                     Delete
                                 </Button>
+
+                                <div style={{ color: '#72249c' }} onClick={() => favoriteHandler(imageDetails.img.isFavorite)}>
+                                    <Icon icon={imageDetails.img.isFavorite === 1 ? heart : heartOutline} size={30} />
+                                </div>
                             </Box>
                         )
                     }

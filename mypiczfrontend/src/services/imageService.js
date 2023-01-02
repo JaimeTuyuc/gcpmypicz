@@ -19,6 +19,7 @@ export const getAllImagesByAlbum = createAsyncThunk(
         };
         try {
             const result = await axiosClient.get(`/api/mypicz/images/${id}`, config);
+            console.log(result.data.images, '-*-* ya viene con album-*-*-*-')
             thunkApi.dispatch(imagesAction.dispatchAllImagesByAlbum(result.data.images));
         } catch (error) {
             console.log(error, 'unable to get all images by album')
@@ -185,6 +186,52 @@ export const getFriendsInfo = createAsyncThunk(
             }
         } catch (error) {
             console.log(error, 'unable to get your friends info')
+            toast.error('Something went wrong, try again later', {
+                duration: 3000,
+                position: "top-right",
+            })
+        }
+    }
+)
+
+export const addFavoriteImage = createAsyncThunk(
+    'add_favorite_image',
+    async (data, thunkApi) => {
+        const token = getTokenUser();
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        };
+        const bodyRequest = { isFav: data.img.isFavorite };
+        try {
+            if (data.withAlbum) {
+                const resultAlbum = await axiosClient.post(`/api/mypicz/images/favorite/${data.img.imageId}`, bodyRequest, config);
+                if (resultAlbum.status === 200) {
+                    toast.success(resultAlbum.data.msg, {
+                        duration: 3000,
+                        position: "top-right",
+                    })
+                    thunkApi.dispatch(imagesAction.dispatchDetailsImg({ img: resultAlbum.data.image, withAlbum: data.withAlbum }));
+                    thunkApi.dispatch(imagesAction.dispatchUpdateImageWithAlbum(resultAlbum.data.image));
+                }
+
+            }
+            if (!data.withAlbum) {
+                const resultAlbum = await axiosClient.post(`/api/mypicz/images/with-no-album/${data.img.imageId}`, bodyRequest, config);
+                if (resultAlbum.status === 200) {
+                    toast.success(resultAlbum.data.msg, {
+                        duration: 3000,
+                        position: "top-right",
+                    })
+                    thunkApi.dispatch(imagesAction.dispatchDetailsImg({ img: resultAlbum.data.image, withAlbum: data.withAlbum }))
+                    thunkApi.dispatch(imagesAction.dispatchUpdateImageNoAlbum(resultAlbum.data.image));
+                }
+            }
+            
+        } catch (error) {
+            console.log(error, 'Unable to add favorite image')
             toast.error('Something went wrong, try again later', {
                 duration: 3000,
                 position: "top-right",

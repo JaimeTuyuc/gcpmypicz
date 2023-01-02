@@ -131,3 +131,40 @@ exports.addNewImage = async (req, res, next) => {
         res.status(500).json({ msg: 'Unable to Save your image' });
     }
 }
+
+// Add Image Album
+exports.addFavoriteImageNoAlbum = async (req, res, next) => {
+    const client = await connectDB();
+    const { userId } = req.user;
+    const { isFav } = req.body;
+    const { imageId } = req.params;
+    const queryFav = `UPDATE "imageNoAlbum" SET "isFavorite" = '${isFav}' WHERE "imageId" = '${imageId}' AND "belongsToUser" = ${userId} RETURNING * `;
+    try {
+        const result = await client.query(queryFav);
+        let msg = isFav === 1 ? 'Added to favorites' : 'Removed from favorites';
+        if (result.rowCount === 1) {
+            return res.status(200).json({ msg: msg, image: result.rows[0] })
+        }
+    } catch (error) {
+        console.log(error, 'Unable to save your favorite image')
+        res.status(500).json({ msg: 'Unable to save your favorite image' });
+    }
+}
+
+exports.addFavoriteImageAlbum = async (req, res, next) => {
+    const client = await connectDB();
+    const { userId } = req.user;
+    const { isFav } = req.body;
+    const { imageId } = req.params;
+    const queryF = `UPDATE "singleImage" SET "isFavorite" = ${isFav} WHERE "imageId" = ${imageId} AND "belongsToUser" = '${userId}' RETURNING *`;
+    try {
+        const result = await client.query(queryF);
+        let msg = isFav === 1 ? 'Added to favorites' : 'Removed from favorites';
+        if (result.rowCount === 1) {
+            return res.status(200).json({ msg: msg, image: result.rows[0] })
+        }
+    } catch (error) {
+        console.log(error, 'Unable to save your favorite image')
+        res.status(500).json({ msg: 'Unable to save your favorite image' });
+    }
+}

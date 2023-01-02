@@ -9,6 +9,7 @@ const getTokenUser = () => {
     return localStorage.getItem('$token');
 }
 
+console.log(process.env.REACT_APP_BACKEND_URL, 'base URL')
 export const registerNewUser = createAsyncThunk(
     'register_user',
     async (data, thunkApi) => {

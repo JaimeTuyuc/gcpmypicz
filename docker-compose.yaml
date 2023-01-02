@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     container_name: gcp-docker-app
-    image: gcr.io/gcp-my-picz/frontendpiczamd:v4 # AMD
+    image: gcr.io/gcp-my-picz/frontendpiczamd:v5 # AMD
     # image: gcr.io/gcp-my-picz/frontendpiczarm:latest # ARM # Local para mac
     ports:
       - 8080:80
