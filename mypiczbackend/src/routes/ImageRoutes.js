@@ -33,4 +33,13 @@ router.delete('/images/:albumId/:imageId',
     imageController.deleteSingleImage
 )
 
+router.post('/images/favorite/:imageId',
+    imageController.addFavoriteImageAlbum
+)
+
+router.post('/images/with-no-album/:imageId',
+    imageController.addFavoriteImageNoAlbum
+)
+
+
 module.exports = router;
