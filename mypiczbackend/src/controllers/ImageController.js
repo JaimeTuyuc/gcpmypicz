@@ -1,5 +1,6 @@
 const connectDB = require('../database/db');
 const { validationResult } = require('express-validator');
+const uploadImgToBucket = require('../helpers/onUploadImgFuncion');
 
 exports.deleteSingleImageNoAlbum = async (req, res, next) => {
     const client = await connectDB();
@@ -165,6 +166,19 @@ exports.addFavoriteImageAlbum = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error, 'Unable to save your favorite image')
+        res.status(500).json({ msg: 'Unable to save your favorite image' });
+    }
+}
+
+exports.uploadImageToStorage = async (req, res, next) => {
+    const myFile = req.files;
+    try {
+        const urlImg = await uploadImgToBucket(myFile);
+        if (urlImg) {
+            return res.status(200).json({ msg: 'Image Saved', imgUrl: urlImg })
+        }
+    } catch (error) {
+        console.log(error, 'Unable to upload the IMG')
         res.status(500).json({ msg: 'Unable to save your favorite image' });
     }
 }

@@ -13,6 +13,7 @@ import { closeCircled } from 'react-icons-kit/ionicons/closeCircled';
 import { useDispatch, useSelector } from 'react-redux';
 import { imagesAction } from '../../../../features/imagesSlice';
 import InfoIcon from '@mui/icons-material/Info';
+import { uploadImageToStorage } from '../../../../services/imageService';
 
 const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, title = 'New Image', withPublic = true }) => {
     const dispatch = useDispatch();
@@ -84,6 +85,9 @@ const ImageUploadModal = ({ open, onClose, saveImageAlbum, withDesc = true, titl
     const valuePublic = publicImg ? 1 : 0;
     const onSubmitImage = (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', acceptedFiles[0]);
+        dispatch(uploadImageToStorage(formData))
         saveImageAlbum({ imgUrl: imageUpload, description: imgDesc, isPublicImg: valuePublic });
     }
     return (

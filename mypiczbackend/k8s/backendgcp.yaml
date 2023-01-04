@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: gcpbackend
-        image: gcr.io/gcp-my-picz/backendpiczamd:v3
+        image: gcr.io/gcp-my-picz/backendpiczamd:v4
         # image: gcr.io/gcp-my-picz/backendpiczarm:latest 
         resources:
           limits:

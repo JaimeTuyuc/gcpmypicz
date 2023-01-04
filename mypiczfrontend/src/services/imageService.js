@@ -19,7 +19,6 @@ export const getAllImagesByAlbum = createAsyncThunk(
         };
         try {
             const result = await axiosClient.get(`/api/mypicz/images/${id}`, config);
-            console.log(result.data.images, '-*-* ya viene con album-*-*-*-')
             thunkApi.dispatch(imagesAction.dispatchAllImagesByAlbum(result.data.images));
         } catch (error) {
             console.log(error, 'unable to get all images by album')
@@ -236,6 +235,28 @@ export const addFavoriteImage = createAsyncThunk(
                 duration: 3000,
                 position: "top-right",
             })
+        }
+    }
+)
+
+export const uploadImageToStorage = createAsyncThunk(
+    'upload_image_storage',
+    async (data, thunkApi) => {
+        const token = getTokenUser();
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            }
+        };
+
+        try {
+            const result = await axiosClient.post(`/api/mypicz/images/storage`, { file: data.getAll('file')[0] }, config);
+            if (result.status === 200) {
+                thunkApi.dispatch(imagesAction.dispatchSaveImageStorage(result.data.imgUrl));
+            }
+        } catch (error) {
+            console.log(error, 'Unable to save to storage')
         }
     }
 )
