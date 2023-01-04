@@ -41,5 +41,8 @@ router.post('/images/with-no-album/:imageId',
     imageController.addFavoriteImageNoAlbum
 )
 
+router.post('/images/storage',
+    imageController.uploadImageToStorage
+)
 
 module.exports = router;

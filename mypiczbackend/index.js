@@ -2,8 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const config = require('./src/settings');
 const checkAuthUser = require('./src/middlewares/Auth');
+const fileUpload = require('express-fileupload');
 
 const app = express();
+app.use(fileUpload());
 
 // Allow valid endpoints
 const corsOptions = {

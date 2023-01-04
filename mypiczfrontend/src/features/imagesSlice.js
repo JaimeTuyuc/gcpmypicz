@@ -7,7 +7,8 @@ const initialState = {
     imageSaved: null,
     imageDeleted: null,
     imageDetails: { img: {}, withAlbum: false },
-    friendsProfileInfo: { user: {}, publicImgs: []}
+    friendsProfileInfo: { user: {}, publicImgs: [] },
+    imageSavedString: ''
 }
 
 export const imagesSlice = createSlice({
@@ -53,6 +54,9 @@ export const imagesSlice = createSlice({
         },
         dispatchUpdateImageWithAlbum(state, action) {
             state.allImagesByAlbum = state.allImagesByAlbum.map((image) => image.imageId === action.payload.imageId ? action.payload : image);
+        },
+        dispatchSaveImageStorage(state, action) {
+            state.imageSavedString = action.payload
         },
         dispatchLogoutImages(state, action) {
             state.allImagesNoAlbum = [];
