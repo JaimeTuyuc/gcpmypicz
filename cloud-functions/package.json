@@ -1,0 +1,23 @@
+{
+  "name": "cloud-functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx functions-framework --target=appCloudFunction --port=4005"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.3",
+    "@google-cloud/logging-winston": "^5.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express-winston": "^4.2.0",
+    "pg": "^8.8.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "express": "^4.18.2"
+  }
+}

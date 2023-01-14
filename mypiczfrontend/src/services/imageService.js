@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosClient } from '../config/axiosConfig';
+import { axiosClient, cloudClient } from '../config/axiosConfig';
 import toast from 'react-hot-toast';
 import { imagesAction } from '../features/imagesSlice';
 
@@ -179,9 +179,10 @@ export const getFriendsInfo = createAsyncThunk(
     'get_users_info',
     async (userName, thunkApi) => {
         try {
-            const result = await axiosClient.get(`/api/mypicz/find-friends/${userName}`);
-            if (result.status === 200) {
-                thunkApi.dispatch(imagesAction.dispatchFriendsInfoSuccess({ userInfo: result.data.user, publicImgs: result.data.publicImgs }))
+            //const result = await axiosClient.get(`/api/mypicz/find-friends/${userName}`);
+            const resultData = await cloudClient.get(`/${userName}`)
+            if (resultData.status === 200) {
+                thunkApi.dispatch(imagesAction.dispatchFriendsInfoSuccess({ userInfo: resultData.data.user, publicImgs: resultData.data.publicImgs }))
             }
         } catch (error) {
             console.log(error, 'unable to get your friends info')

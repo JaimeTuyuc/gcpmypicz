@@ -31,7 +31,7 @@ const ModalDeleteAlbum = ({ open, onClose, deleteObj, albumDeleteHandler }) => {
                             fontWeight='bold'
                             gutterBottom
                         >
-                            Do you really want to delete <span style={{ fontWeight: 'bold', fontStyle: 'oblique', fontSize: '17px'}}>{deleteObj.albumName}</span> album?, All images in this album will be lost, once deleted, it cannot be restored
+                            Do you really want to delete <span style={{ fontWeight: 'bold', fontStyle: 'oblique', fontSize: '17px' }}>{deleteObj.albumName}</span> album?, All images in this album will be lost, once deleted, it cannot be restored
                         </Typography>
                         <AlbumFormContainer
                             onSubmit={deleteHandler}
@@ -39,33 +39,33 @@ const ModalDeleteAlbum = ({ open, onClose, deleteObj, albumDeleteHandler }) => {
                             <FormControl
                                 fullWidth
                                 style={{ marginTop: '20px' }}
-                                >
-                                        <Box sx={{ flexGrow: 1 }} >
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={12} md={6}>
-                                                    <Button
-                                                        fullWidth
-                                                        variant='outlined'
-                                                        color='secondary'
-                                                        endIcon={<CancelIcon />}
-                                                        onClick={onClose}
-                                                        >No, Cancel</Button>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <Button
-                                                        fullWidth
-                                                        variant='contained'
-                                                        color='secondary'
-                                                        endIcon={<DeleteOutlineOutlinedIcon />}
-                                                        //disabled={!albumName}
-                                                        type='submit'
-                                                        >Yes, Delete</Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Box>
-                                </FormControl>
-                            </AlbumFormContainer>
-                        </Box>
+                            >
+                                <Box sx={{ flexGrow: 1 }} >
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} md={6}>
+                                            <Button
+                                                fullWidth
+                                                variant='outlined'
+                                                color='secondary'
+                                                endIcon={<CancelIcon />}
+                                                onClick={onClose}
+                                            >No, Cancel</Button>
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <Button
+                                                fullWidth
+                                                variant='contained'
+                                                color='secondary'
+                                                endIcon={<DeleteOutlineOutlinedIcon />}
+                                                //disabled={!albumName}
+                                                type='submit'
+                                            >Yes, Delete</Button>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </FormControl>
+                        </AlbumFormContainer>
+                    </Box>
                 </ModalStylesContainer>
             </Modal>
         </>

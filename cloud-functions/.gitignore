@@ -24,6 +24,11 @@ yarn-error.log*
 
 /data
 
-.env
+/commands
+
 /.env
-*/,env
+.env
+google-credentials.json
+service-account.json
+./credentials
+credentials
